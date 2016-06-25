@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Court Counter</string>
+    <string name="action_settings">Settings</string>
+    <string name="one_pointer">ADD 1 POINTER</string>
+
+    <string name="two_pointer">ADD 2 POINTER</string>
+    <string name="three_pointer">ADD 3 POINTER</string>
+</resources>
