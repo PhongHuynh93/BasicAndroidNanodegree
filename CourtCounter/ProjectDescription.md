@@ -10,4 +10,5 @@ Functionality:
 3) Even if you happen to rotate your screen, the data will not be lost and the UI would also retain the values. onSaveInstance() and onRestoreInstance() have been overridden to ensure that data is not lost even when the configuration changes from portrait to landscape.
 
 
-!()
+!(https://github.com/puneetchugh/BasicAndroidNanodegree/blob/master/images/court_count_1.jpg "LandScape View")
+!(https://github.com/puneetchugh/BasicAndroidNanodegree/blob/master/images/court_count_2.jpg "Portrait View")
