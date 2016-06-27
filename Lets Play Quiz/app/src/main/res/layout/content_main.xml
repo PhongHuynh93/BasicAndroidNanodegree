@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.puneetchugh.myapplication.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This is a quiz on Cricket"
+        android:textSize="24sp"
+        android:paddingBottom="@dimen/activity_vertical_margin_less"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="vertical">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:text="Which cricker is also called as 'The Master Blaster' ?"
+            android:paddingTop="@dimen/activity_vertical_margin_less"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/answer_sachin_tendulkar_id"/>
+
+        <TextView
+            android:paddingTop="@dimen/activity_vertical_margin_less"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:text="MS Dhoni holds the record for finishing maximum matches with a SIX. True or False"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/true_id"
+            android:onClick="trueFalse"
+            android:layout_marginBottom="@dimen/activity_vertical_margin_less"
+            />
+        <RadioButton
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/false_id"
+            android:onClick="trueFalse"/>
+
+        <TextView
+            android:paddingTop="@dimen/activity_vertical_margin_less"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:text="Which of the following countries have their T20 leagues ?"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/check_first_id"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/check_second_id"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/check_third_id"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/check_fourth_id"
+            />
+
+        <TextView
+            android:paddingTop="@dimen/activity_vertical_margin_less"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:text="Which is the only Indian batsman to have scored 6 sixes in an over ? "
+            />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/answer_yuvraj_singh"/>
+
+        <TextView
+            android:paddingTop="@dimen/activity_vertical_margin_less"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:text="Dwanye Bravo holds the record of playing the most IPL matches. True or False."
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/true_id_1"
+            android:onClick="trueFalse"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/false_id_1"
+            android:onClick="trueFalse"/>
+
+        <TextView
+            android:paddingTop="@dimen/activity_vertical_margin_less"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:text="Which bowler has taken a hat-trick more than one time ?"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/check_first_id_1"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/check_second_id_1"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/check_third_id_1"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/check_fourth_id_1"
+            />
+
+        <TextView
+            android:paddingTop="@dimen/activity_vertical_margin_less"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:text="Who's the captain of current Australia's ODI and Test team ?"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/answer_steve_smith_id"/>
+
+
+         <Button
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Submit"
+             android:background="@color/colorPrimary"
+             android:textSize="20sp"
+             android:layout_gravity="center_horizontal"
+             android:onClick="answersSubmitted"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
