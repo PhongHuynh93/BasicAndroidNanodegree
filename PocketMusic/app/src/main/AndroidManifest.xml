@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.puneetchugh.kailashrestaurant">
+    package="com.example.puneetchugh.pocketmusic">
 
     <application
         android:allowBackup="true"
@@ -8,9 +8,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <uses-permission android:name="android.permission.WAKE_LOCK" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +23,7 @@
             </intent-filter>
         </activity>
 
-
+        <service android:name="com.example.puneetchugh.pocketmusic.MusicService" />
     </application>
 
 </manifest>
