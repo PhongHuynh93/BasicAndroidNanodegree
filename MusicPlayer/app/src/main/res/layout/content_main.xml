@@ -77,9 +77,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="Go to the Songs List"
         android:id="@+id/button5"
         android:layout_above="@+id/button"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp" />
+        android:layout_marginBottom="100dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:onClick="goToMainActivity"/>
 </RelativeLayout>

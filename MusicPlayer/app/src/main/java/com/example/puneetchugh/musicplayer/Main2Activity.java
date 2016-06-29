@@ -25,12 +25,14 @@ public class Main2Activity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView);
         listAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, songsList);
+        listView.setAdapter(listAdapter);
 
     }
 
     public void moveToPlaying(View View){
 
         Intent intent = new Intent(this, MainActivity.class);
+        finish();
         startActivity(intent);
     }
 

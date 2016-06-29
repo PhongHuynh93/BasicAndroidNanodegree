@@ -1,5 +1,6 @@
 package com.example.puneetchugh.musicplayer;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -147,6 +148,11 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer.start();
     }
 
+    public void goToMainActivity(View view){
+        Intent intent = new Intent(this, Main2Activity.class);
+        finish();
+        startActivity(intent);
+    }
     @Override
     public void onStop(){
         super.onStop();
