@@ -10,7 +10,6 @@ The app has been converted to Multi-Screens app:
 
 2) Second screen is the playing screen. It has all the opens like play,pause,stop and got to previous song.
 
-![](https://github.com/puneetchugh/BasicAndroidNanodegree/blob/master/images/music_app.jpg)
 
 ![](https://github.com/puneetchugh/BasicAndroidNanodegree/blob/master/images/music_player.jpg)
 ![](https://github.com/puneetchugh/BasicAndroidNanodegree/blob/master/images/music_player_playing.jpg)
