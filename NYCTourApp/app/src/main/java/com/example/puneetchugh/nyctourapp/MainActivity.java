@@ -26,12 +26,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         touristAttractionsArrayList = new LinkedList<>();
-        touristAttractionsArrayList.add(new TouristAttractions("Statue Of Liberty", "New York, NY", "8am - 8pm", "Statue of liberty has a historical importance", R.drawable.nyc_statue_of_liberty));
-        touristAttractionsArrayList.add(new TouristAttractions("Brooklyn Bridge", "Brooklyn, NY", "24 hours", "Statue of liberty has a historical importance", R.drawable.nyc_brooklyn_bridge));
-        touristAttractionsArrayList.add(new TouristAttractions("Times Squre", "42nd Street, 6th Avenue, NY", "24 hours", "Times square has all the bright advertisements on tall buildings", R.drawable.nyc_times_square));
-        touristAttractionsArrayList.add(new TouristAttractions("Empire State", "30th Street, NY", "8am - 9pm", "One of the tallest buildings of New York that keeps changing the color of its top portion", R.drawable.nyc_empire_state));
-        touristAttractionsArrayList.add(new TouristAttractions("Madam Tussauds", "50th Street, NY", "11am - 9pm", "Madam Tussauds has wax statues of world celebrities", R.drawable.nyc_madam_tussauds));
-        touristAttractionsArrayList.add(new TouristAttractions("Central Park", "New York, NY", "5am - 10pm", "Huge Park with various tourist attraction in the heart of Manhattan", R.drawable.nyc_central_park));
+        touristAttractionsArrayList.add(new TouristAttractions(getResources().getString(R.string.statue_of_liberty), getResources().getString(R.string.statue_of_liberty_loc), getResources().getString(R.string.statue_of_liberty_timings) , getResources().getString(R.string.statue_of_liberty_description), R.drawable.nyc_statue_of_liberty));
+        touristAttractionsArrayList.add(new TouristAttractions(getResources().getString(R.string.brooklyn_bridge), getResources().getString(R.string.brooklyn_bridge_loc), getResources().getString(R.string.brooklyn_bridge_timings), getResources().getString(R.string.brooklyn_bridge_description), R.drawable.nyc_brooklyn_bridge));
+        touristAttractionsArrayList.add(new TouristAttractions(getResources().getString(R.string.times_square), getResources().getString(R.string.times_square_loc), getResources().getString(R.string.times_square_timings), getResources().getString(R.string.times_square_description), R.drawable.nyc_times_square));
+        touristAttractionsArrayList.add(new TouristAttractions(getResources().getString(R.string.empire_state), getResources().getString(R.string.empire_state_loc), getResources().getString(R.string.empire_state_timings), getResources().getString(R.string.empire_state_description), R.drawable.nyc_empire_state));
+        touristAttractionsArrayList.add(new TouristAttractions(getResources().getString(R.string.madam_tussauds), getResources().getString(R.string.madam_tussauds_loc), getResources().getString(R.string.madam_tussauds_timings), getResources().getString(R.string.madam_tussauds_description), R.drawable.nyc_madam_tussauds));
+        touristAttractionsArrayList.add(new TouristAttractions(getResources().getString(R.string.central_park), getResources().getString(R.string.central_park_loc), getResources().getString(R.string.central_park_timings), getResources().getString(R.string.central_park_description), R.drawable.nyc_central_park));
 
 
         mCustomPagerAdapter = new CustomPagerAdapter(this, touristAttractionsArrayList);

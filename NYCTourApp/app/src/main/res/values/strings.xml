@@ -1,4 +1,40 @@
 <resources>
     <string name="app_name">NYC Tour App</string>
     <string name="action_settings">Settings</string>
+
+    <string name="statue_of_liberty">Statue Of Liberty</string>
+    <string name="brooklyn_bridge">Brooklyn Bridge</string>
+    <string name="empire_state">Empire State Building</string>
+    <string name="times_square">Time Square</string>
+    <string name="central_park">Central Park</string>
+    <string name="madam_tussauds">Madam Tussauds</string>
+
+    <string name="statue_of_liberty_description">State Of Liberty has a historical importance</string>
+    <string name="brooklyn_bridge_description">Brooklyn Bridge construction has a historical importance</string>
+    <string name="empire_state_description">Its one of the tallest buildings with changing colors at the top</string>
+    <string name="times_square_description">Times Square is famous for all the brightly lit advertisement on tall buildings</string>
+    <string name="central_park_description">Central park is a huge park at the hear of city</string>
+    <string name="madam_tussauds_description">Madam Tussauds has wax statues of world famous celebrities</string>
+
+    <string name="statue_of_liberty_loc">New York NY</string>
+    <string name="brooklyn_bridge_loc">Brooklyn NY</string>
+    <string name="empire_state_loc">30th Street Manhattan NY</string>
+    <string name="times_square_loc">42nd street 6th avenue Manhattan NY</string>
+    <string name="central_park_loc">New York NY</string>
+    <string name="madam_tussauds_loc">50th street Manhattan NY</string>
+
+    <string name="statue_of_liberty_timings"> 8am-8pm</string>
+    <string name="brooklyn_bridge_timings">24 hours</string>
+    <string name="empire_state_timings">9am-10pm</string>
+    <string name="times_square_timings">24 hours</string>
+    <string name="central_park_timings">5am-10pm</string>
+    <string name="madam_tussauds_timings">10am-10pm</string>
+
+    <string name="name">Name : </string>
+    <string name="location">Location : </string>
+    <string name="timings">Timings : </string>
+    <string name="description">Description : </string>
+
+
+
 </resources>
