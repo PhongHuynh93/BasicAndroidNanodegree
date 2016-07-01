@@ -35,7 +35,6 @@ public class MyAdapter  extends BaseAdapter
     {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.list_item, null);
-
         TextView textViewTitle=(TextView)view.findViewById(R.id.textView);
         TextView textAuthor=(TextView)view.findViewById(R.id.textView2);
         textViewTitle.setText(bookItemArrayList.get(position).getTitle());
