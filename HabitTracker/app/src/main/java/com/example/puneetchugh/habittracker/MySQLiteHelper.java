@@ -26,10 +26,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String CREATE_TABLE = "CREATE TABLE "+Contract.TABLE_HABITS_LEFT+" ( "+Contract.HabitsLeft.COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+Contract.HabitsLeft.COLUMN_HABIT+" TEXT NOT NULL, "+Contract.HabitsLeft.COLUMN_DATE_LEFT+" TEXT NOT NULL);";
-
         db.execSQL(CREATE_TABLE);
-
         CREATE_TABLE = "CREATE TABLE "+Contract.TABLE_HABITS_ADOPTED+" ( "+Contract.HabitsAdopted.COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+Contract.HabitsAdopted.COLUMN_HABIT+" TEXT NOT NULL, "+Contract.HabitsAdopted.COLUMN_DATE_ADOPTED+" TEXT NOT NULL);";
+        db.execSQL(CREATE_TABLE);
     }
 
     @Override
@@ -39,21 +38,26 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
+    public boolean deleteDatabase(Context context) {
+        return context.deleteDatabase(Contract.DATABASE);
+    }
+
+    public void deleteAll(){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("delete from "+ Contract.TABLE_HABITS_LEFT);
+        db.execSQL("delete from"+ Contract.TABLE_HABITS_ADOPTED);
+    }
     public void insert( String habit, String date, String habitStatus){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         if(habitStatus.matches("left")) {
             contentValues.put(Contract.HabitsLeft.COLUMN_HABIT, habit);
             contentValues.put(Contract.HabitsLeft.COLUMN_DATE_LEFT, date);
-
-
             db.insert(Contract.TABLE_HABITS_LEFT, null, contentValues);
         }
         else{
             contentValues.put(Contract.HabitsAdopted.COLUMN_HABIT, habit);
             contentValues.put(Contract.HabitsAdopted.COLUMN_DATE_ADOPTED, date);
-
-
             db.insert(Contract.TABLE_HABITS_ADOPTED, null, contentValues);
 
         }
@@ -68,17 +72,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             if (cursor != null) {
                 cursor.moveToFirst();
             }
-
             Contract.HabitsLeft habitsLeft = new Contract.HabitsLeft(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
         }
-
         else if(habitStatus.matches("adopted")){
             Cursor cursor = db.query(Contract.TABLE_HABITS_ADOPTED, new String[]{Contract.HabitsAdopted.COLUMN_ID, Contract.HabitsAdopted.COLUMN_HABIT, Contract.HabitsAdopted.COLUMN_DATE_ADOPTED}, Contract.HabitsAdopted.COLUMN_ID+" _id = ?",new String[]{habit}, null, null, null, null);
 
             if (cursor != null) {
                 cursor.moveToFirst();
             }
-
             Contract.HabitsAdopted habitsAdopted = new Contract.HabitsAdopted(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
         }
     }
@@ -89,7 +90,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         if (habitStatus.matches("left")) {
             db.delete(Contract.TABLE_HABITS_LEFT, Contract.HabitsLeft.COLUMN_HABIT + " = ?", new String[]{habit});
         }
-
         else if (habitStatus.matches("adopted")) {
             db.delete(Contract.TABLE_HABITS_ADOPTED, Contract.HabitsAdopted.COLUMN_HABIT + " = ?", new String[]{habit});
         }
@@ -105,13 +105,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             contentValues.put(Contract.HabitsLeft.COLUMN_DATE_LEFT, date);
             db.update(Contract.TABLE_HABITS_LEFT, contentValues, Contract.HabitsLeft.COLUMN_HABIT + " = ?", new String[]{habit});
         }
-
         else if(status.matches("adopted")) {
             contentValues.put(Contract.HabitsAdopted.COLUMN_HABIT, habit);
             contentValues.put(Contract.HabitsAdopted.COLUMN_DATE_ADOPTED, date);
             db.update(Contract.TABLE_HABITS_ADOPTED, contentValues, Contract.HabitsAdopted.COLUMN_HABIT + " = ?", new String[]{habit});
         }
-
         db.close();
     }
 }

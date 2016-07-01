@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         context = this;
         mySQLiteHelper = new MySQLiteHelper(context);
         db = mySQLiteHelper.getWritableDatabase();
@@ -34,21 +33,14 @@ public class MainActivity extends AppCompatActivity {
         values.put(Contract.HabitsLeft.COLUMN_HABIT, "Smoking");
         values.put(Contract.HabitsLeft.COLUMN_DATE_LEFT, "04-06-2016");
         db.insert(Contract.TABLE_HABITS_LEFT, null, values);
-
         ContentValues values2 = new ContentValues();
         values.put(Contract.HabitsLeft.COLUMN_HABIT, "Drinking");
         values.put(Contract.HabitsLeft.COLUMN_DATE_LEFT, "08-06-2016");
         db.insert(Contract.TABLE_HABITS_LEFT, null, values);
-
         db.delete(Contract.TABLE_HABITS_LEFT, Contract.HabitsLeft.COLUMN_HABIT + " = ?", new String[]{"Smoking"});
-
         values.put(Contract.HabitsLeft.COLUMN_HABIT, "Smoking");
         values.put(Contract.HabitsLeft.COLUMN_DATE_LEFT, "06-16-2016");
-
         db.update(Contract.TABLE_HABITS_LEFT, values, Contract.HabitsLeft.COLUMN_HABIT + " = ?", new String[]{"Drinking"});
-
-
-
     }
 
     @Override
