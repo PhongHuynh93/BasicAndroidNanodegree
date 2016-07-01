@@ -33,7 +33,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<NewsItem> newsItemArrayList;
-    ArrayList<String> newsStringList;
     ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.news_item_list_view);
         newsItemArrayList = new ArrayList<>();
-        newsStringList = new ArrayList<>();
-
         makeSearch();
-
     }
 
     @Override
@@ -74,18 +70,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void makeSearch() {
         String urlstring;
-
         urlstring = "https://content.guardianapis.com/search?api-key=46197571-53dd-4796-a92c-78342d438e64";
         new CallAPI().execute(urlstring);
     }
 
     private void response(String responseData) {
-
-
+        
         try {
-
-
-            JSONObject responseObject = new JSONObject(responseData);
+             JSONObject responseObject = new JSONObject(responseData);
             JSONObject jsonObject = responseObject.getJSONObject("response");
             JSONArray resultArray = jsonObject.getJSONArray("results");
             String resultString = resultArray.toString();
@@ -93,30 +85,21 @@ public class MainActivity extends AppCompatActivity {
             for(int i=0; i<resultArray.length(); i++){
                 JSONObject newsFeed = resultArray.getJSONObject(i);
                 newsItemArrayList.add(new NewsItem(newsFeed.getString("webTitle"), newsFeed.getString("webUrl"), newsFeed.getString("sectionName")));
-                newsStringList.add(i, newsItemArrayList.get(i).getWebTitle()+"\n"+newsItemArrayList.get(i).getSectionName());
             }
-
-            //ArrayAdapter<String> newsArrayAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, newsStringList);
             MyAdapter myAdapter = new MyAdapter(this, newsItemArrayList);
             listView.setAdapter(myAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
                     Intent newsIntent= new Intent(Intent.ACTION_VIEW);
                     newsIntent.setData(Uri.parse(newsItemArrayList.get(position).getWebUrl()));
                     startActivity(newsIntent);
-
-
                 }
             });
-
         }catch (JSONException jsonException){
             Toast.makeText(this, jsonException.getMessage(), Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
 
@@ -171,16 +154,12 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                 }
             }
-
             return sb.toString();
         }
 
         protected void onPostExecute(String stream_url) {
             super.onPostExecute(stream_url);
             response(stream_url);
-
-
-
         }
 
     }

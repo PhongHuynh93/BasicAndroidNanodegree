@@ -56,10 +56,10 @@ class CustomPagerAdapter extends PagerAdapter {
         imageView = (ImageView) itemView.findViewById(R.id.imageView_id);
 
 
-        nameView.setText("Name : " + touristAttractionsLinkedList.get(position).getName());
-        locationView.setText("Location : " + touristAttractionsLinkedList.get(position).getLocation());
-        timingsView.setText("Timings : " + touristAttractionsLinkedList.get(position).getTimings());
-        descriptionView.setText("Description : " + touristAttractionsLinkedList.get(position).getDescription());
+        nameView.setText(getResources().getString(R.string.name),  + touristAttractionsLinkedList.get(position).getName());
+        locationView.setText(getResources().getString(R.string.location),  + touristAttractionsLinkedList.get(position).getLocation());
+        timingsView.setText(getResources().getString(R.string.timings),  + touristAttractionsLinkedList.get(position).getTimings());
+        descriptionView.setText(getResources().getString(R.string.description), + touristAttractionsLinkedList.get(position).getDescription());
         imageView.setImageResource(touristAttractionsLinkedList.get(position).getImage());
 
         container.addView(itemView);
