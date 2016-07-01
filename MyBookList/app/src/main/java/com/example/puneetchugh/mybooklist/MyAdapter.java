@@ -45,7 +45,7 @@ public class MyAdapter  extends BaseAdapter
     }
 
     public Object getItem(int position) {
-        return position;
+        return bookItemArrayList.get(position);
     }
 
     public long getItemId(int position) {

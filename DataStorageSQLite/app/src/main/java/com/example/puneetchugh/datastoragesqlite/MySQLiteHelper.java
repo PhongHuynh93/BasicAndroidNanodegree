@@ -107,4 +107,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.update(TABLE_NAME, contentValues, TABLE_COLUMN_ID + " = ?", new String[]{String.valueOf(inventoryItem.getId())});
         db.close();
     }
+
+    public void deleteDatabase(){
+
+    }
 }
