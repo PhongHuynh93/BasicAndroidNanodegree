@@ -25,9 +25,15 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String CREATE_TABLE = "CREATE TABLE "+Contract.TABLE_HABITS_LEFT+" ( "+Contract.HabitsLeft.COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+Contract.HabitsLeft.COLUMN_HABIT+" TEXT NOT NULL, "+Contract.HabitsLeft.COLUMN_DATE_LEFT+" TEXT NOT NULL);";
+        String CREATE_TABLE = "CREATE TABLE "+Contract.TABLE_HABITS_LEFT+" ( "
+                                             +Contract.HabitsLeft.COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                             +Contract.HabitsLeft.COLUMN_HABIT+" TEXT NOT NULL, "
+                                             +Contract.HabitsLeft.COLUMN_DATE_LEFT+" TEXT NOT NULL);";
         db.execSQL(CREATE_TABLE);
-        CREATE_TABLE = "CREATE TABLE "+Contract.TABLE_HABITS_ADOPTED+" ( "+Contract.HabitsAdopted.COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+Contract.HabitsAdopted.COLUMN_HABIT+" TEXT NOT NULL, "+Contract.HabitsAdopted.COLUMN_DATE_ADOPTED+" TEXT NOT NULL);";
+        CREATE_TABLE = "CREATE TABLE "+Contract.TABLE_HABITS_ADOPTED+" ( "
+                                      +Contract.HabitsAdopted.COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                      +Contract.HabitsAdopted.COLUMN_HABIT+" TEXT NOT NULL, "
+                                      +Contract.HabitsAdopted.COLUMN_DATE_ADOPTED+" TEXT NOT NULL);";
         db.execSQL(CREATE_TABLE);
     }
 
@@ -67,7 +73,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public void read(String habit, String habitStatus){
         SQLiteDatabase db = getWritableDatabase();
         if(habitStatus.matches("left")){
-            Cursor cursor = db.query(Contract.TABLE_HABITS_LEFT, new String[]{Contract.HabitsLeft.COLUMN_ID, Contract.HabitsLeft.COLUMN_HABIT, Contract.HabitsLeft.COLUMN_DATE_LEFT}, Contract.HabitsLeft.COLUMN_ID+" _id = ?",new String[]{habit}, null, null, null, null);
+            Cursor cursor = db.query(Contract.TABLE_HABITS_LEFT, new String[]{ Contract.HabitsLeft.COLUMN_ID,
+                                                                               Contract.HabitsLeft.COLUMN_HABIT,
+                                                                               Contract.HabitsLeft.COLUMN_DATE_LEFT},
+                                                                               Contract.HabitsLeft.COLUMN_ID+" _id = ?",
+                                                                               new String[]{habit}, null, null, null, null);
 
             if (cursor != null) {
                 cursor.moveToFirst();
@@ -75,7 +85,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             Contract.HabitsLeft habitsLeft = new Contract.HabitsLeft(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
         }
         else if(habitStatus.matches("adopted")){
-            Cursor cursor = db.query(Contract.TABLE_HABITS_ADOPTED, new String[]{Contract.HabitsAdopted.COLUMN_ID, Contract.HabitsAdopted.COLUMN_HABIT, Contract.HabitsAdopted.COLUMN_DATE_ADOPTED}, Contract.HabitsAdopted.COLUMN_ID+" _id = ?",new String[]{habit}, null, null, null, null);
+            Cursor cursor = db.query(Contract.TABLE_HABITS_ADOPTED, new String[]{Contract.HabitsAdopted.COLUMN_ID,
+                                                                                 Contract.HabitsAdopted.COLUMN_HABIT,
+                                                                                 Contract.HabitsAdopted.COLUMN_DATE_ADOPTED},
+                                                                                 Contract.HabitsAdopted.COLUMN_ID+" _id = ?",
+                                                                                 new String[]{habit}, null, null, null, null);
 
             if (cursor != null) {
                 cursor.moveToFirst();
