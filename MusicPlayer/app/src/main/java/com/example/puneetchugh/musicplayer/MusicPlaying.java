@@ -1,30 +1,31 @@
 package com.example.puneetchugh.musicplayer;
 
+/**
+ * Created by puneetchugh on 7/1/16.
+ */
+
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class MusicPlaying extends AppCompatActivity {
 
     private static int counter = 0;
-
     private Button playStop;
     private Button forward;
     private Button backward;
     private Button pause;
     private MediaPlayer mediaPlayer;
-    String[] songs = new String[]{"abhi_mujh_mein","tum_hi_ho","hai_apna_dil"};
+    private String[] songs = new String[]{"abhi_mujh_mein","tum_hi_ho","hai_apna_dil"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mediaPlayer =  MediaPlayer.create(this, R.raw.tum_hi_ho);
-
-        int track1 = R.raw.abhi_mujh_mein;
-        int track2 = R.raw.tum_hi_ho;
-        int track3 = R.raw.hai_apna_dil;
-
-
-
 
         playStop = (Button) findViewById(R.id.button4);
         forward = (Button) findViewById(R.id.button3);
@@ -68,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -76,16 +69,15 @@ public class MainActivity extends AppCompatActivity {
 
         if(counter == 2){
 
-            Toast.makeText(this,"This is the last song. You can only go to the previous song", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "This is the last song. You can only go to the previous song", Toast.LENGTH_SHORT).show();
             return;
         }
-
         counter++;
         mediaPlayer.stop();
+
         if(counter == 1){
             mediaPlayer = MediaPlayer.create(this, R.raw.hai_apna_dil);
         }
-
         else if(counter == 2){
             mediaPlayer = MediaPlayer.create(this, R.raw.abhi_mujh_mein);
         }
@@ -94,11 +86,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void playOrStopSong(View view) {
+
         if(mediaPlayer.isPlaying()){
             playStop.setText("Play");
             mediaPlayer.stop();
         }
-
         else if(!mediaPlayer.isPlaying()){
             playStop.setText("Stop");
             try {
@@ -107,9 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             mediaPlayer.start();
-
         }
-
     }
 
     public void pauseSong(View view) {
@@ -121,9 +111,6 @@ public class MainActivity extends AppCompatActivity {
         }
         Toast.makeText(this,"Pausing the song", Toast.LENGTH_SHORT).show();
         mediaPlayer.pause();
-
-
-
     }
 
     public void playPreviousSong(View view) {
@@ -142,20 +129,20 @@ public class MainActivity extends AppCompatActivity {
         else if(counter == 1){
             mediaPlayer = MediaPlayer.create(this, R.raw.hai_apna_dil);
         }
-
-
         Toast.makeText(this, "Playing the previous song", Toast.LENGTH_SHORT).show();
         mediaPlayer.start();
     }
 
     public void goToMainActivity(View view){
-        Intent intent = new Intent(this, Main2Activity.class);
+        Intent intent = new Intent(this, MusicList.class);
         finish();
         startActivity(intent);
     }
+
     @Override
     public void onStop(){
         super.onStop();
         mediaPlayer.release();
     }
 }
+
