@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,7 +36,9 @@ public class MyAdapter  extends BaseAdapter
     public View getView(int position,  View view, ViewGroup parent)
     {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.list_item, null);
+        if(view == null){
+            view = inflater.inflate(R.layout.list_item, null);
+        }
         TextView textViewTitle=(TextView)view.findViewById(R.id.textView);
         TextView textAuthor=(TextView)view.findViewById(R.id.textView2);
         textViewTitle.setText(bookItemArrayList.get(position).getTitle());
