@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -90,11 +91,21 @@ public class MainActivity extends AppCompatActivity {
         productSeller = (EditText) findViewById(R.id.order_seller_id);
         productPrice = (EditText) findViewById(R.id.order_price_id);
 
-        String productNameString = productName.getText().toString().trim();
-        int productQuantityNumber = Integer.parseInt(productQuantity.getText().toString().trim());
-        String productSellerString = productSeller.getText().toString().trim();
-        int productPriceNumber = Integer.parseInt(productPrice.getText().toString().trim());;
-        mySQLiteHelper.insert(productNameString, productQuantityNumber,productSellerString, productPriceNumber);
+        if(productName.getText().toString().matches("") || productSeller.toString().matches("") || productQuantity.toString().matches("") || productPrice.toString().matches("")){
+            Toast.makeText(this,"You can't have a null product name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            String productNameString = productName.getText().toString().trim();
+            int productQuantityNumber = Integer.parseInt(productQuantity.getText().toString().trim());
+            String productSellerString = productSeller.getText().toString().trim();
+            int productPriceNumber = Integer.parseInt(productPrice.getText().toString().trim());;
+            mySQLiteHelper.insert(productNameString, productQuantityNumber,productSellerString, productPriceNumber);
+
+        }catch (NumberFormatException nFE){
+            Toast.makeText(this, "You cannot enter a non-number value for quantity or price", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         productName.setText("");
         productQuantity.setText("");
