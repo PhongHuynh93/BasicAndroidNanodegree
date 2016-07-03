@@ -3,6 +3,8 @@ package com.example.puneetchugh.invertorymanagement;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ public class ProductDetails extends AppCompatActivity {
     private TextView productNameView;
     private TextView productPriceView;
     private TextView productSellerView;
+    private ImageView productImageView;
     private int tempQuantity = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,7 @@ public class ProductDetails extends AppCompatActivity {
         productNameView = (TextView) findViewById(R.id.product_name_id);
         productPriceView = (TextView) findViewById(R.id.product_price_id);
         productSellerView = (TextView) findViewById(R.id.product_seller_id);
-
+        productImageView = (ImageView) findViewById(R.id.product_image_id);
         mySQLiteHelper = new MySQLiteHelper(this);
 
         Intent intent = getIntent();
@@ -46,6 +50,9 @@ public class ProductDetails extends AppCompatActivity {
         productSellerView.setText("Supplier : "+inventoryItem.getSupplier());
         productNameView.setText("Name : "+inventoryItem.getItemName());
         productPriceView.setText("Price($) per item : " + Integer.toString(inventoryItem.getPrice()));
+        Bitmap bitmap = BitmapFactory.decodeByteArray(inventoryItem.getPhoto(), 0, inventoryItem.getPhoto().length);
+
+        productImageView.setImageBitmap(bitmap);
     }
 
     public void sellPurchase(View view){

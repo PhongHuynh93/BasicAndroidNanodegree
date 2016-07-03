@@ -41,7 +41,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private Context context;
     private SQLiteDatabase db;
 
-    private static final String[] COLUMNS = {TABLE_COLUMN_ID, TABLE_COLUMN_NAME, TABLE_COLUMN_QUANTITY, TABLE_COLUMN_SUPPLIER, TABLE_COLUMN_PRICE};
+    private static final String[] COLUMNS = {TABLE_COLUMN_ID, TABLE_COLUMN_NAME, TABLE_COLUMN_QUANTITY, TABLE_COLUMN_SUPPLIER, TABLE_COLUMN_PRICE, TABLE_COLUMN_IMG};
     public MySQLiteHelper(Context context){
         super(context, DATABASE_NAME, null, 1);
         this.context = context;
@@ -51,7 +51,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ( "+TABLE_COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+TABLE_COLUMN_NAME+" TEXT NOT NULL, "+TABLE_COLUMN_QUANTITY+" INTEGER NOT NULL, "+TABLE_COLUMN_SUPPLIER+" TEXT NOT NULL, "+TABLE_COLUMN_PRICE+" INTEGER NOT NULL);";
+        String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ( "+TABLE_COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+TABLE_COLUMN_NAME+" TEXT NOT NULL, "+TABLE_COLUMN_QUANTITY+" INTEGER NOT NULL, "+TABLE_COLUMN_SUPPLIER+" TEXT NOT NULL, "+TABLE_COLUMN_PRICE+" INTEGER NOT NULL, "+ TABLE_COLUMN_IMG+" BLOB);";
         db.execSQL(CREATE_TABLE);
     }
 
@@ -67,7 +67,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void insert(String name, int quantity, String supplier, int price){
+    public void insert(String name, int quantity, String supplier, int price, byte[] photo){
 
         String nameToBeInserted = name.toLowerCase().trim();
         String supplierToBeInserted = supplier.trim();
@@ -77,7 +77,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         contentValues.put(TABLE_COLUMN_QUANTITY, quantity);
         contentValues.put(TABLE_COLUMN_SUPPLIER, supplier);
         contentValues.put(TABLE_COLUMN_PRICE, price);
-
+        contentValues.put(TABLE_COLUMN_IMG, photo);
         Cursor cursor = db.query(TABLE_NAME,
                 COLUMNS, " name=?", new String[]{nameToBeInserted}, null, null, null, null);
         if(cursor.moveToFirst()){
@@ -100,7 +100,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
         }
 
-        InventoryItem inventoryItem = new InventoryItem(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4));
+        InventoryItem inventoryItem = new InventoryItem(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getBlob(5));
         cursor.close();
         return inventoryItem;
     }
@@ -114,7 +114,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
         if(cursor.moveToNext()){
             do{
-                InventoryItem inventoryItem = new InventoryItem(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4));
+                InventoryItem inventoryItem = new InventoryItem(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getBlob(5));
                 inventoryItemList.add(inventoryItem);
 
             }while (cursor.moveToNext());
@@ -130,7 +130,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     }
 
     public void deleteItem(InventoryItem inventoryItem) {
-        db.delete(TABLE_NAME,   TABLE_COLUMN_ID +" = ?", new String[] { String.valueOf(inventoryItem.getId()) });
+        db.delete(TABLE_NAME, TABLE_COLUMN_ID + " = ?", new String[] { String.valueOf(inventoryItem.getId()) });
     }
 
     public void updateItem(InventoryItem inventoryItem){
@@ -141,6 +141,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         contentValues.put(TABLE_COLUMN_QUANTITY, inventoryItem.getQuantity());
         contentValues.put(TABLE_COLUMN_SUPPLIER, inventoryItem.getSupplier());
         contentValues.put(TABLE_COLUMN_PRICE, inventoryItem.getPrice());
+        contentValues.put(TABLE_COLUMN_IMG, inventoryItem.getPhoto());
         int returnValue = db.update(TABLE_NAME, contentValues, TABLE_COLUMN_ID + " = ?", new String[]{String.valueOf(inventoryItem.getId())});
         ArrayList<InventoryItem> inventoryItemArrayList = getListOfInventoryItem();
     }

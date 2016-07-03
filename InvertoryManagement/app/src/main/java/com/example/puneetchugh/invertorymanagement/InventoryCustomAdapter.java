@@ -63,11 +63,6 @@ public class InventoryCustomAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.list_item, null);
         }
 
-        String photoPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+inventoryItemArrayList.get(position).getItemName()+".jpg";
-
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 8;
-        Bitmap b = BitmapFactory.decodeFile(photoPath, options);
 
         imageView = (ImageView) convertView.findViewById(R.id.image);
         listProductView = (TextView) convertView.findViewById(R.id.product);
@@ -75,7 +70,8 @@ public class InventoryCustomAdapter extends BaseAdapter {
         listProductPrice = (TextView) convertView.findViewById(R.id.price);
         listProductSeller = (TextView) convertView.findViewById(R.id.seller);
 
-        imageView.setImageBitmap(b);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(inventoryItemArrayList.get(position).getPhoto() , 0, inventoryItemArrayList.get(position).getPhoto().length);
+        imageView.setImageBitmap(bitmap);
         listProductView.setText("Product : "+inventoryItemArrayList.get(position).getItemName());
         listProductPrice.setText("Price($) per unit : "+Integer.toString(inventoryItemArrayList.get(position).getPrice()));
         listProductSeller.setText("Seller : "+inventoryItemArrayList.get(position).getSupplier());

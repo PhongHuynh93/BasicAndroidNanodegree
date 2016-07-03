@@ -115,28 +115,8 @@ public class MainActivity extends AppCompatActivity {
             String productSellerString = productSeller.getText().toString().trim();
             int productPriceNumber = Integer.parseInt(productPrice.getText().toString().trim());
 
-            File sdCardDirectory = Environment.getExternalStorageDirectory();
-            File image = new File(sdCardDirectory, productNameString+".jpg");
-
-            boolean success = false;
-
-            // Encode the file as a PNG image.
-            FileOutputStream outStream;
-            try {
-
-                outStream = new FileOutputStream(image);
-                bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-        /* 100 to keep full quality of the image */
-
-                outStream.flush();
-                outStream.close();
-                success = true;
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            mySQLiteHelper.insert(productNameString, productQuantityNumber,productSellerString, productPriceNumber);
+            byte[] photoByte = getBytes(bitmapImage);
+            mySQLiteHelper.insert(productNameString, productQuantityNumber,productSellerString, productPriceNumber, photoByte);
             bitmapImage = null;
         }catch (NumberFormatException nFE){
             Toast.makeText(this, "You cannot enter a non-number value for quantity or price", Toast.LENGTH_SHORT).show();

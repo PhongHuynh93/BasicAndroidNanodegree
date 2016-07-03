@@ -22,12 +22,21 @@
         android:textStyle="bold"
         android:textSize="24sp"/>
 
+    <ImageView
+        android:id="@+id/product_image_id"
+        android:layout_height="80dp"
+        android:layout_width="80dp"
+        android:src="@drawable/not_available"
+        android:layout_below="@+id/product_detail_id"
+        android:scaleType="fitXY"
+        android:layout_centerHorizontal="true"/>
+
     <TextView
         android:id="@+id/product_name_id"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:gravity="center_horizontal"
-        android:layout_below="@+id/product_detail_id"
+        android:layout_below="@+id/product_image_id"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:text="@string/name"
         android:textStyle="bold"/>
@@ -41,6 +50,7 @@
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:text="@string/price"
         android:textStyle="bold"/>
+
 
     <TextView
         android:id="@+id/product_seller_id"
