@@ -38,12 +38,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static String TABLE_COLUMN_ID = "_id";
     private SQLiteDatabase inventoryDatabase;
     private Context context;
-    private SQLiteDatabase database;
+    private SQLiteDatabase db;
 
     private static final String[] COLUMNS = {TABLE_COLUMN_ID, TABLE_COLUMN_NAME, TABLE_COLUMN_QUANTITY, TABLE_COLUMN_SUPPLIER, TABLE_COLUMN_PRICE};
     public MySQLiteHelper(Context context){
         super(context, DATABASE_NAME, null, 1);
         this.context = context;
+        db = getWritableDatabase();
     }
 
     @Override
@@ -55,16 +56,21 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
         db.execSQL("DROP TABLE IF EXISTS" + TABLE_NAME);
         this.onCreate(db);
     }
 
-    public void insert(String name, int quantity, String supplier, int price){
+    public void close(){
 
+        db.close();
+    }
+
+    public void insert(String name, int quantity, String supplier, int price){
 
         String nameToBeInserted = name.toLowerCase().trim();
         String supplierToBeInserted = supplier.trim();
-        SQLiteDatabase db = getWritableDatabase();
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_COLUMN_NAME, nameToBeInserted);
         contentValues.put(TABLE_COLUMN_QUANTITY, quantity);
@@ -81,11 +87,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             db.insert(TABLE_NAME, null, contentValues);
             Toast.makeText(context, "New product ordered and updated", Toast.LENGTH_SHORT).show();
         }
-        db.close();
+        cursor.close();
     }
 
     public InventoryItem read(int id){
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME,
                 COLUMNS, " _id = ?",new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -94,13 +100,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         }
 
         InventoryItem inventoryItem = new InventoryItem(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4));
+        cursor.close();
         return inventoryItem;
     }
 
     public ArrayList<InventoryItem> getListOfInventoryItem(){
 
         ArrayList<InventoryItem> inventoryItemList = new ArrayList<>();
-        SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT  * FROM " + TABLE_NAME;
 
         Cursor cursor = db.rawQuery(query, null);
@@ -112,7 +118,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
             }while (cursor.moveToNext());
         }
-
+        cursor.close();
         return inventoryItemList;
 
     }
@@ -123,21 +129,19 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     }
 
     public void deleteItem(InventoryItem inventoryItem) {
-        SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME,   TABLE_COLUMN_ID +" = ?", new String[] { String.valueOf(inventoryItem.getId()) });
-        db.close();
-
     }
 
     public void updateItem(InventoryItem inventoryItem){
-        SQLiteDatabase db = this.getWritableDatabase();
+
+        ArrayList<InventoryItem> inventoryItemArrayList1 = getListOfInventoryItem();
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_COLUMN_NAME, inventoryItem.getItemName());
         contentValues.put(TABLE_COLUMN_QUANTITY, inventoryItem.getQuantity());
         contentValues.put(TABLE_COLUMN_SUPPLIER, inventoryItem.getSupplier());
         contentValues.put(TABLE_COLUMN_PRICE, inventoryItem.getPrice());
         int returnValue = db.update(TABLE_NAME, contentValues, TABLE_COLUMN_ID + " = ?", new String[]{String.valueOf(inventoryItem.getId())});
-        db.close();
+        ArrayList<InventoryItem> inventoryItemArrayList = getListOfInventoryItem();
     }
 
     public void deleteDatabase(){

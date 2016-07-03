@@ -30,13 +30,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mySQLiteHelper = new MySQLiteHelper(this);
-        database = mySQLiteHelper.getWritableDatabase();
-        mySQLiteHelper.insert("Notepad", 10, "WestField Traders",50);
-        mySQLiteHelper.insert("Pen",20,"RightWing Traders",60);
-        mySQLiteHelper.insert("Lighter",5,"ThinkLogic Traders",100);
-        mySQLiteHelper.insert("Highlighter", 12, "TwoBrothers traders", 20);
-        database.close();
-        mySQLiteHelper = null;
+        //database = mySQLiteHelper.getWritableDatabase();
+        //mySQLiteHelper.insert("Notepad", 10, "WestField Traders",50);
+        //mySQLiteHelper.insert("Pen",20,"RightWing Traders",60);
+        //mySQLiteHelper.insert("Lighter",5,"ThinkLogic Traders",100);
+        //mySQLiteHelper.insert("Highlighter", 12, "TwoBrothers traders", 20);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         MyPageFragmentAdapter pagerAdapter =
@@ -53,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             //tab.setCustomView(pagerAdapter.getTabView(i));
         }
+
+    }
+    @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+        mySQLiteHelper.close();
 
     }
 
@@ -88,12 +93,8 @@ public class MainActivity extends AppCompatActivity {
         String productNameString = productName.getText().toString().trim();
         int productQuantityNumber = Integer.parseInt(productQuantity.getText().toString().trim());
         String productSellerString = productSeller.getText().toString().trim();
-        int productPriceNumber = Integer.parseInt(productPrice.getText().toString().trim());
-        mySQLiteHelper = new MySQLiteHelper(this);
-        database = mySQLiteHelper.getWritableDatabase();
-        mySQLiteHelper.insert(productNameString,productQuantityNumber,productSellerString, productPriceNumber);
-        database.close();
-        mySQLiteHelper = null;
+        int productPriceNumber = Integer.parseInt(productPrice.getText().toString().trim());;
+        mySQLiteHelper.insert(productNameString, productQuantityNumber,productSellerString, productPriceNumber);
 
         productName.setText("");
         productQuantity.setText("");

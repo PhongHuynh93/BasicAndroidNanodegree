@@ -35,7 +35,7 @@ public class ProductDetails extends AppCompatActivity {
         productSellerView = (TextView) findViewById(R.id.product_seller_id);
 
         mySQLiteHelper = new MySQLiteHelper(this);
-        sqLiteDatabase = mySQLiteHelper.getWritableDatabase();
+        //sqLiteDatabase = mySQLiteHelper.getWritableDatabase();
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -69,8 +69,6 @@ public class ProductDetails extends AppCompatActivity {
     public void deleteProduct(View view){
         mySQLiteHelper.deleteItem(inventoryItem);
 
-        sqLiteDatabase.close();
-        mySQLiteHelper = null;
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("source-activity","ProductDetails");
         //finish();
@@ -91,11 +89,17 @@ public class ProductDetails extends AppCompatActivity {
         }
         inventoryItem.setQuantity(productQuantity);
         mySQLiteHelper.updateItem(inventoryItem);
-        sqLiteDatabase.close();
-        mySQLiteHelper = null;
+        //sqLiteDatabase.close();
+        //mySQLiteHelper = null;
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("source-activity", "ProductDetails");
         //finish();
         startActivity(intent);
+    }
+
+    public void onDestroy() {
+
+        super.onDestroy();
+        mySQLiteHelper.close();
     }
 }

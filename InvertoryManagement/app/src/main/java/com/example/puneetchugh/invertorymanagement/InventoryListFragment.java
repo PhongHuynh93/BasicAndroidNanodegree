@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +26,7 @@ public class InventoryListFragment extends Fragment {
     private ListView listView;
     private ArrayList<InventoryItem> inventoryItemArrayList;
     private MySQLiteHelper mySQLiteHelper;
+    private SQLiteDatabase db;
     static InventoryListFragment fragment;
 
     public static InventoryListFragment newInstance(int page) {
@@ -34,31 +37,42 @@ public class InventoryListFragment extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mySQLiteHelper = new MySQLiteHelper(getActivity());
+
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.inventorylist_fragment, container, false);
-        listView = (ListView)view.findViewById(R.id.list_view);
-
+        TextView textWhenNoListId = (TextView) view.findViewById(R.id.when_no_list);
+        mySQLiteHelper = new MySQLiteHelper(getActivity());
         inventoryItemArrayList = new ArrayList<>();
         inventoryItemArrayList = mySQLiteHelper.getListOfInventoryItem();
-        InventoryCustomAdapter inventoryCustomAdapter = new InventoryCustomAdapter(inventoryItemArrayList,getActivity());
-        listView.setAdapter(inventoryCustomAdapter);
+        mySQLiteHelper.close();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if(inventoryItemArrayList.size() == 0){
 
-                Intent intent= new Intent(getActivity(),ProductDetails.class);
-                intent.putExtra("inventory_item",inventoryItemArrayList.get(position));
-                getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-                startActivity(intent);
+        }else {
+            textWhenNoListId.setVisibility(View.GONE);
+            listView = (ListView)view.findViewById(R.id.list_view);
+            InventoryCustomAdapter inventoryCustomAdapter = new InventoryCustomAdapter(inventoryItemArrayList, getActivity());
+            listView.setAdapter(inventoryCustomAdapter);
 
-            }
-        });
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    if (inventoryItemArrayList.size() == 0) {
+
+                    } else {
+                        Intent intent = new Intent(getActivity(), ProductDetails.class);
+                        intent.putExtra("inventory_item", inventoryItemArrayList.get(position));
+                        getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                        startActivity(intent);
+                    }
+                }
+            });
+        }
         return view;
     }
 }
