@@ -66,7 +66,8 @@
             android:id="@+id/item_sold"
             android:text="@string/sold"
             android:textStyle="bold"
-            android:layout_margin="@dimen/activity_horizontal_margin"/>
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:onClick="sellPurchase"/>
 
         <TextView
             android:id="@+id/quantity_product_details_id"
@@ -84,7 +85,8 @@
             android:id="@+id/item_purchased"
             android:text="@string/purchase"
             android:textStyle="bold"
-            android:layout_margin="@dimen/activity_horizontal_margin"/>
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:onClick="sellPurchase"/>
     </LinearLayout>
 
     <Button
@@ -92,6 +94,7 @@
         android:layout_width="wrap_content"
         android:text="@string/order"
         android:textStyle="bold"
+        android:onClick="orderProduct"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:textSize="20sp"
@@ -102,6 +105,7 @@
         android:layout_width="wrap_content"
         android:text="@string/delete"
         android:textStyle="bold"
+        android:onClick="deleteProduct"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:textSize="20sp"

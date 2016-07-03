@@ -8,13 +8,13 @@
     <string name="price">Price</string>
     <string name="seller">Seller</string>
     <string name="title_activity_product_details">ProductDetails</string>
-    <string name="order">Order</string>
+    <string name="order">Order/Sell</string>
     <string name="delete">Delete</string>
     <string name="product_detail">Product Detail</string>
     <string name="sold">Sold</string>
     <string name="purchase">Purchase</string>
     <string name="name">Name</string>
     <string name="product_seller">Enter Seller Name</string>
-    <string name="product_price">Enter Price</string>
+    <string name="product_price">Enter Price($) Per Item</string>
 
 </resources>

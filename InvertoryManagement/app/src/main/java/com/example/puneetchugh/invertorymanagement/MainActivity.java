@@ -1,5 +1,6 @@
 package com.example.puneetchugh.invertorymanagement;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -86,11 +87,20 @@ public class MainActivity extends AppCompatActivity {
         int productQuantityNumber = Integer.parseInt(productQuantity.getText().toString().trim());
         String productSellerString = productSeller.getText().toString().trim();
         int productPriceNumber = Integer.parseInt(productPrice.getText().toString().trim());
-        mySQLiteHelper.insert(productNameString,productQuantityNumber,productNameString, productPriceNumber);
+        mySQLiteHelper.insert(productNameString,productQuantityNumber,productSellerString, productPriceNumber);
 
         productName.setText("");
         productQuantity.setText("");
         productSeller.setText("");
         productPrice.setText("");
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        MyPageFragmentAdapter pagerAdapter =
+                new MyPageFragmentAdapter(getSupportFragmentManager(), MainActivity.this);
+        viewPager.setAdapter(pagerAdapter);
+
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

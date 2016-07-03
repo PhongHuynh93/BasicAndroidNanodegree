@@ -63,6 +63,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 
         String nameToBeInserted = name.toLowerCase().trim();
+        String supplierToBeInserted = supplier.trim();
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_COLUMN_NAME, nameToBeInserted);
@@ -135,7 +136,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         contentValues.put(TABLE_COLUMN_QUANTITY, inventoryItem.getQuantity());
         contentValues.put(TABLE_COLUMN_SUPPLIER, inventoryItem.getSupplier());
         contentValues.put(TABLE_COLUMN_PRICE, inventoryItem.getPrice());
-        db.update(TABLE_NAME, contentValues, TABLE_COLUMN_ID + " = ?", new String[]{String.valueOf(inventoryItem.getId())});
+        int returnValue = db.update(TABLE_NAME, contentValues, TABLE_COLUMN_ID + " = ?", new String[]{String.valueOf(inventoryItem.getId())});
         db.close();
     }
 

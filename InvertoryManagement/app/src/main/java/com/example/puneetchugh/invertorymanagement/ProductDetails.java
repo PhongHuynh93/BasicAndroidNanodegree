@@ -39,23 +39,31 @@ public class ProductDetails extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        InventoryItem inventoryItem = (InventoryItem)bundle.get("inventory_item");
+        inventoryItem = (InventoryItem)bundle.get("inventory_item");
         tempQuantity = inventoryItem.getQuantity();
         productQuantityView.setText(Integer.toString(inventoryItem.getQuantity()));
         productSellerView.setText(inventoryItem.getSupplier());
         productNameView.setText(inventoryItem.getItemName());
-        productPriceView.setText(Integer.toString(inventoryItem.getPrice()));
+        productPriceView.setText("Price($) per item : " + Integer.toString(inventoryItem.getPrice()));
     }
 
     public void sellPurchase(View view){
 
         switch (view.getId()){
 
-            case R.id.item_sold: productQuantityView.setText(String.valueOf(tempQuantity-1));
-                                 break;
-            case R.id.item_purchased: productQuantityView.setText(String.valueOf(tempQuantity+1));
-                                      break;
+            case R.id.item_sold: if(tempQuantity != 0) {
+                tempQuantity--;
+                productQuantityView.setText(String.valueOf(tempQuantity));
+            }
+                break;
+            case R.id.item_purchased:
+                tempQuantity++;
+                productQuantityView.setText(String.valueOf(tempQuantity));
+                break;
+
         }
+
+        Toast.makeText(this, "Don't forget to click on Order for making changes in the inventory list", Toast.LENGTH_SHORT).show();
     }
 
     public void deleteProduct(View view){
@@ -76,5 +84,9 @@ public class ProductDetails extends AppCompatActivity {
         }
         inventoryItem.setQuantity(productQuantity);
         mySQLiteHelper.updateItem(inventoryItem);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("source-activity","ProductDetails");
+        //finish();
+        startActivity(intent);
     }
 }

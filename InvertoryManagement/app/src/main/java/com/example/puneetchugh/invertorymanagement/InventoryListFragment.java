@@ -53,6 +53,7 @@ public class InventoryListFragment extends Fragment {
                 Intent intent= new Intent(getActivity(),ProductDetails.class);
                 intent.putExtra("inventory_item",inventoryItemArrayList.get(position));
                 startActivity(intent);
+
             }
         });
         return view;
