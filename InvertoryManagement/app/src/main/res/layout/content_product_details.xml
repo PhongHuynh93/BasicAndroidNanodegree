@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.puneetchugh.invertorymanagement.ProductDetails"
+    tools:showIn="@layout/activity_product_details">
+
+    <TextView
+        android:id="@+id/product_detail_id"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text="@string/product_detail"
+        android:textStyle="bold"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:id="@+id/product_name_id"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/product_detail_id"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text="@string/name"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/product_price_id"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/product_name_id"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text="@string/price"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/product_seller_id"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/product_price_id"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text="@string/quantity"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:id="@+id/quantity_update_id"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/product_seller_id"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/item_sold"
+            android:text="@string/sold"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+        <TextView
+            android:id="@+id/quantity_product_details_id"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:text="0"
+            />
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/item_purchased"
+            android:text="@string/purchase"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:text="@string/order"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:textSize="20sp"
+        android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+    <Button
+        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:text="@string/delete"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:textSize="20sp"
+        android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+
+
+</RelativeLayout>
