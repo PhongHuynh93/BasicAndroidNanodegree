@@ -57,10 +57,10 @@ public class InventoryCustomAdapter extends BaseAdapter {
         listProductPrice = (TextView) convertView.findViewById(R.id.price);
         listProductSeller = (TextView) convertView.findViewById(R.id.seller);
 
-        listProductView.setText(inventoryItemArrayList.get(position).getItemName());
-        listProductPrice.setText(Integer.toString(inventoryItemArrayList.get(position).getPrice()));
-        listProductSeller.setText(inventoryItemArrayList.get(position).getSupplier());
-        listProductQuantity.setText(Integer.toString(inventoryItemArrayList.get(position).getQuantity()));
+        listProductView.setText("Product : "+inventoryItemArrayList.get(position).getItemName());
+        listProductPrice.setText("Price($) per unit : "+Integer.toString(inventoryItemArrayList.get(position).getPrice()));
+        listProductSeller.setText("Seller : "+inventoryItemArrayList.get(position).getSupplier());
+        listProductQuantity.setText("Quantity " +Integer.toString(inventoryItemArrayList.get(position).getQuantity()));
 
         return convertView;
 

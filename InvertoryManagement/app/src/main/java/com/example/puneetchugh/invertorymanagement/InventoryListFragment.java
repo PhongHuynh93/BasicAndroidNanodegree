@@ -1,5 +1,6 @@
 package com.example.puneetchugh.invertorymanagement;
 
+import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,10 +24,11 @@ public class InventoryListFragment extends Fragment {
     private ListView listView;
     private ArrayList<InventoryItem> inventoryItemArrayList;
     private MySQLiteHelper mySQLiteHelper;
+    static InventoryListFragment fragment;
 
     public static InventoryListFragment newInstance(int page) {
 
-        InventoryListFragment fragment = new InventoryListFragment();
+        fragment = new InventoryListFragment();
         return fragment;
     }
 
@@ -52,6 +54,7 @@ public class InventoryListFragment extends Fragment {
 
                 Intent intent= new Intent(getActivity(),ProductDetails.class);
                 intent.putExtra("inventory_item",inventoryItemArrayList.get(position));
+                getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).commit();
                 startActivity(intent);
 
             }

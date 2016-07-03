@@ -42,8 +42,8 @@ public class ProductDetails extends AppCompatActivity {
         inventoryItem = (InventoryItem)bundle.get("inventory_item");
         tempQuantity = inventoryItem.getQuantity();
         productQuantityView.setText(Integer.toString(inventoryItem.getQuantity()));
-        productSellerView.setText(inventoryItem.getSupplier());
-        productNameView.setText(inventoryItem.getItemName());
+        productSellerView.setText("Supplier : "+inventoryItem.getSupplier());
+        productNameView.setText("Name : "+inventoryItem.getItemName());
         productPriceView.setText("Price($) per item : " + Integer.toString(inventoryItem.getPrice()));
     }
 
@@ -68,6 +68,13 @@ public class ProductDetails extends AppCompatActivity {
 
     public void deleteProduct(View view){
         mySQLiteHelper.deleteItem(inventoryItem);
+
+        sqLiteDatabase.close();
+        mySQLiteHelper = null;
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("source-activity","ProductDetails");
+        //finish();
+        startActivity(intent);
     }
 
     public void orderProduct(View view){
@@ -84,8 +91,10 @@ public class ProductDetails extends AppCompatActivity {
         }
         inventoryItem.setQuantity(productQuantity);
         mySQLiteHelper.updateItem(inventoryItem);
+        sqLiteDatabase.close();
+        mySQLiteHelper = null;
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("source-activity","ProductDetails");
+        intent.putExtra("source-activity", "ProductDetails");
         //finish();
         startActivity(intent);
     }
