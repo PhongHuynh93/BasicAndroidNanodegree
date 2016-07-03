@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -18,6 +19,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText productQuantity;
     private EditText productSeller;
     private EditText productPrice;
+    private String imageName = new String();
+    private Bitmap bitmapImage;
     private byte[] bytesArrayImage = new byte[1];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,17 +104,40 @@ public class MainActivity extends AppCompatActivity {
         productSeller = (EditText) findViewById(R.id.order_seller_id);
         productPrice = (EditText) findViewById(R.id.order_price_id);
 
-        if(productName.getText().toString().matches("") || productSeller.toString().matches("") || productQuantity.toString().matches("") || productPrice.toString().matches("")){
-            Toast.makeText(this,"You can't have a null product name", Toast.LENGTH_SHORT).show();
+        if(productName.getText().toString().matches("") || productSeller.toString().matches("") ||
+                productQuantity.toString().matches("") || productPrice.toString().matches("") || bitmapImage == null){
+            Toast.makeText(this,"You can't have a null product name or no image", Toast.LENGTH_SHORT).show();
             return;
         }
         try {
             String productNameString = productName.getText().toString().trim();
             int productQuantityNumber = Integer.parseInt(productQuantity.getText().toString().trim());
             String productSellerString = productSeller.getText().toString().trim();
-            int productPriceNumber = Integer.parseInt(productPrice.getText().toString().trim());;
-            mySQLiteHelper.insert(productNameString, productQuantityNumber,productSellerString, productPriceNumber);
+            int productPriceNumber = Integer.parseInt(productPrice.getText().toString().trim());
 
+            File sdCardDirectory = Environment.getExternalStorageDirectory();
+            File image = new File(sdCardDirectory, productNameString+".jpg");
+
+            boolean success = false;
+
+            // Encode the file as a PNG image.
+            FileOutputStream outStream;
+            try {
+
+                outStream = new FileOutputStream(image);
+                bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+        /* 100 to keep full quality of the image */
+
+                outStream.flush();
+                outStream.close();
+                success = true;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            mySQLiteHelper.insert(productNameString, productQuantityNumber,productSellerString, productPriceNumber);
+            bitmapImage = null;
         }catch (NumberFormatException nFE){
             Toast.makeText(this, "You cannot enter a non-number value for quantity or price", Toast.LENGTH_SHORT).show();
             return;
@@ -136,8 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            Bitmap mphoto = (Bitmap) data.getExtras().get("data");
-            bytesArrayImage = getBytes(mphoto);
+            bitmapImage = (Bitmap) data.getExtras().get("data");
         }
     }
 

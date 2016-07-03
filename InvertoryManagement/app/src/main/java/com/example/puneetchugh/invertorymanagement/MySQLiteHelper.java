@@ -36,6 +36,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static String TABLE_COLUMN_SUPPLIER = "supplier";
     private static String TABLE_COLUMN_PRICE = "price";
     private static String TABLE_COLUMN_ID = "_id";
+    private static String TABLE_COLUMN_IMG = "image";
     private SQLiteDatabase inventoryDatabase;
     private Context context;
     private SQLiteDatabase db;

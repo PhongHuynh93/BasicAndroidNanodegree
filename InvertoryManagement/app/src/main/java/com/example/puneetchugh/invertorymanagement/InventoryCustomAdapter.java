@@ -2,11 +2,16 @@ package com.example.puneetchugh.invertorymanagement;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -21,6 +26,7 @@ public class InventoryCustomAdapter extends BaseAdapter {
     private TextView listProductPrice;
     private TextView listProductQuantity;
     private TextView listProductSeller;
+    private ImageView imageView;
     private ArrayList<InventoryItem> inventoryItemArrayList;
 
     private Context context;
@@ -57,11 +63,19 @@ public class InventoryCustomAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.list_item, null);
         }
 
+        String photoPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+inventoryItemArrayList.get(position).getItemName()+".jpg";
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 8;
+        Bitmap b = BitmapFactory.decodeFile(photoPath, options);
+
+        imageView = (ImageView) convertView.findViewById(R.id.image);
         listProductView = (TextView) convertView.findViewById(R.id.product);
         listProductQuantity = (TextView) convertView.findViewById(R.id.quantity);
         listProductPrice = (TextView) convertView.findViewById(R.id.price);
         listProductSeller = (TextView) convertView.findViewById(R.id.seller);
 
+        imageView.setImageBitmap(b);
         listProductView.setText("Product : "+inventoryItemArrayList.get(position).getItemName());
         listProductPrice.setText("Price($) per unit : "+Integer.toString(inventoryItemArrayList.get(position).getPrice()));
         listProductSeller.setText("Seller : "+inventoryItemArrayList.get(position).getSupplier());

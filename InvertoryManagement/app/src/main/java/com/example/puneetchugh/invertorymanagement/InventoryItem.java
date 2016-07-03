@@ -38,7 +38,7 @@ public class InventoryItem implements Parcelable {
         this.itemName = p.readString();
         this.quantity = p.readInt();
         this.supplier = p.readString();
-        this.price= p.readInt();
+        this.price = p.readInt();
     }
 
     @Override
