@@ -31,7 +31,7 @@ public class InventoryCustomAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        //return inventoryItemArrayList.size();
+
         return inventoryItemArrayList.size();
     }
 
@@ -61,7 +61,6 @@ public class InventoryCustomAdapter extends BaseAdapter {
         listProductPrice.setText("Price($) per unit : "+Integer.toString(inventoryItemArrayList.get(position).getPrice()));
         listProductSeller.setText("Seller : "+inventoryItemArrayList.get(position).getSupplier());
         listProductQuantity.setText("Quantity " +Integer.toString(inventoryItemArrayList.get(position).getQuantity()));
-
         return convertView;
 
     }

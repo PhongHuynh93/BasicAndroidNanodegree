@@ -1,10 +1,12 @@
 package com.example.puneetchugh.invertorymanagement;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -35,7 +37,6 @@ public class ProductDetails extends AppCompatActivity {
         productSellerView = (TextView) findViewById(R.id.product_seller_id);
 
         mySQLiteHelper = new MySQLiteHelper(this);
-        //sqLiteDatabase = mySQLiteHelper.getWritableDatabase();
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -60,19 +61,36 @@ public class ProductDetails extends AppCompatActivity {
                 tempQuantity++;
                 productQuantityView.setText(String.valueOf(tempQuantity));
                 break;
-
         }
+        inventoryItem.setQuantity(tempQuantity);
+        mySQLiteHelper.updateItem(inventoryItem);
 
-        Toast.makeText(this, "Don't forget to click on Order for making changes in the inventory list", Toast.LENGTH_SHORT).show();
+
+        //Toast.makeText(this, "Don't forget to click on Order for making changes in the inventory list", Toast.LENGTH_SHORT).show();
     }
 
-    public void deleteProduct(View view){
-        mySQLiteHelper.deleteItem(inventoryItem);
+    public void deleteProduct(final View view){
 
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("source-activity","ProductDetails");
-        //finish();
-        startActivity(intent);
+        AlertDialog alertDialog = new AlertDialog.Builder(view.getContext()).create();
+        alertDialog.setTitle("Delete Product Confirmation");
+        alertDialog.setMessage("Are you sure you want to delete " + inventoryItem.getItemName() + " ?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        mySQLiteHelper.deleteItem(inventoryItem);
+                        dialog.dismiss();
+                        Intent intent = new Intent(view.getContext(), MainActivity.class);
+                        intent.putExtra("source-activity", "ProductDetails");
+                        startActivity(intent);
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     public void orderProduct(View view){
@@ -89,12 +107,14 @@ public class ProductDetails extends AppCompatActivity {
         }
         inventoryItem.setQuantity(productQuantity);
         mySQLiteHelper.updateItem(inventoryItem);
-        //sqLiteDatabase.close();
-        //mySQLiteHelper = null;
+
+        Intent launchGoogleChrome = getPackageManager().getLaunchIntentForPackage("com.android.chrome");
+        launchGoogleChrome.putExtra("browser_fallback_url", inventoryItem.getItemName());
+        startActivity(launchGoogleChrome);
+/*
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("source-activity", "ProductDetails");
-        //finish();
-        startActivity(intent);
+        startActivity(intent);*/
     }
 
     public void onDestroy() {

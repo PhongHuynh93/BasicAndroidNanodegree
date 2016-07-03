@@ -67,7 +67,7 @@ public class InventoryListFragment extends Fragment {
                     } else {
                         Intent intent = new Intent(getActivity(), ProductDetails.class);
                         intent.putExtra("inventory_item", inventoryItemArrayList.get(position));
-                        getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                        //getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).commit();
                         startActivity(intent);
                     }
                 }
