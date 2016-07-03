@@ -73,15 +73,30 @@
         android:id="@+id/order_price_id"
         />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
         android:layout_height="wrap_content"
-        android:text="@string/only_order"
-        android:id="@+id/button"
-        android:onClick="orderQuantity"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:weightSum="2"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/image_click_button"
+            android:id="@+id/clickImage"
+            android:onClick="clickImage"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/activity_horizontal_margin"
         />
 
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/only_order"
+            android:id="@+id/button"
+            android:onClick="orderQuantity"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            />
 
+    </LinearLayout>
 </LinearLayout>

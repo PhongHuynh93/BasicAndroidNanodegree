@@ -1,10 +1,12 @@
 package com.example.puneetchugh.invertorymanagement;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -20,7 +22,10 @@ public class InventoryCustomAdapter extends BaseAdapter {
     private TextView listProductQuantity;
     private TextView listProductSeller;
     private ArrayList<InventoryItem> inventoryItemArrayList;
+
     private Context context;
+
+    private MySQLiteHelper mySQLiteHelper;
 
 
     public InventoryCustomAdapter(ArrayList<InventoryItem> inventoryItemArrayList, Context context){
@@ -46,7 +51,7 @@ public class InventoryCustomAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(convertView == null){
             convertView = inflater.inflate(R.layout.list_item, null);
@@ -61,6 +66,34 @@ public class InventoryCustomAdapter extends BaseAdapter {
         listProductPrice.setText("Price($) per unit : "+Integer.toString(inventoryItemArrayList.get(position).getPrice()));
         listProductSeller.setText("Seller : "+inventoryItemArrayList.get(position).getSupplier());
         listProductQuantity.setText("Quantity " +Integer.toString(inventoryItemArrayList.get(position).getQuantity()));
+
+        Button detailButton = (Button) convertView.findViewById(R.id.detail);
+        detailButton.setClickable(true);
+        detailButton.setFocusable(true);
+        detailButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View parent) {
+                Intent intent = new Intent(context, ProductDetails.class);
+                intent.putExtra("inventory_item", inventoryItemArrayList.get(position));
+                //getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                context.startActivity(intent);
+
+            }
+        });
+
+        Button sellButton = (Button) convertView.findViewById(R.id.sell);
+        sellButton.setClickable(true);
+        sellButton.setFocusable(true);
+        sellButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View parent) {
+                InventoryItem inventoryItem = inventoryItemArrayList.get(position);
+                mySQLiteHelper = new MySQLiteHelper(context);
+                int temQuantity = inventoryItem.getQuantity();
+                temQuantity--;
+                inventoryItem.setQuantity(temQuantity);
+                mySQLiteHelper.updateItem(inventoryItem);
+                mySQLiteHelper.close();
+            }
+        });
         return convertView;
 
     }
