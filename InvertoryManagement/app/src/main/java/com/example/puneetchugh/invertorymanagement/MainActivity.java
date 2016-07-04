@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if(productPriceNumber <= 0 || productQuantityNumber <= 0){
-                Toast.makeText(this, "That'a an invalid quantity", Toast.LENGTH_SHORT);
+                Toast.makeText(this, "That'a an invalid quantity", Toast.LENGTH_SHORT).show();
                 return;
             }
             byte[] photoByte = getBytes(bitmapImage);
