@@ -114,5 +114,8 @@ public class ProductDetails extends AppCompatActivity {
 
         super.onDestroy();
         mySQLiteHelper.close();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
