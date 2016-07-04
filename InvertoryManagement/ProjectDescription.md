@@ -20,6 +20,8 @@ The inventory management keeps a track of the avaialble inventory. Inventory Man
 
 ![](https://github.com/puneetchugh/BasicAndroidNanodegree/blob/master/images/inventory_management_5.jpg)
 
+![](https://github.com/puneetchugh/BasicAndroidNanodegree/blob/master/images/inventory_management_6.jpg)
+
 
 
 
