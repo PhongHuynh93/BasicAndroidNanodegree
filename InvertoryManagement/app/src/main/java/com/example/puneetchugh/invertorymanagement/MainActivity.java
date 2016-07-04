@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
             if(productPriceNumber <= 0 || productQuantityNumber <= 0){
                 Toast.makeText(this, "That'a an invalid quantity", Toast.LENGTH_SHORT);
+                return;
             }
             byte[] photoByte = getBytes(bitmapImage);
             mySQLiteHelper.insert(productNameString, productQuantityNumber,productSellerString, productPriceNumber, photoByte);
