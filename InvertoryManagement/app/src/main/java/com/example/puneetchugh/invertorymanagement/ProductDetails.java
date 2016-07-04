@@ -112,16 +112,24 @@ public class ProductDetails extends AppCompatActivity {
         else{
             Toast.makeText(this, "Updated Inventory List. "+String.valueOf(-difference)+" "+ inventoryItem.getItemName()+" purchased",Toast.LENGTH_SHORT).show();
         }
-        inventoryItem.setQuantity(productQuantity);
-        mySQLiteHelper.updateItem(inventoryItem);
+        //inventoryItem.setQuantity(productQuantity);
+        //mySQLiteHelper.updateItem(inventoryItem);
 
-        Intent launchGoogleChrome = getPackageManager().getLaunchIntentForPackage("com.android.chrome");
-        launchGoogleChrome.putExtra("browser_fallback_url", inventoryItem.getItemName());
-        startActivity(launchGoogleChrome);
-/*
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("source-activity", "ProductDetails");
-        startActivity(intent);*/
+        //Intent launchGoogleChrome = getPackageManager().getLaunchIntentForPackage("com.android.chrome");
+        //launchGoogleChrome.putExtra("browser_fallback_url", inventoryItem.getItemName());
+        //startActivity(launchGoogleChrome);
+
+        String subject = "Order stock for "+inventoryItem.getItemName();
+        String message = "We would like to place an order of 10 "+inventoryItem.getItemName();
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("message/rfc822");
+        //intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{inventoryItem.getSupplier()});
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        Intent mailer = Intent.createChooser(intent, null);
+        startActivity(mailer);
+
     }
 
     public void onDestroy() {

@@ -23,6 +23,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -113,14 +115,20 @@ public class MainActivity extends AppCompatActivity {
             String productNameString = productName.getText().toString().trim();
             int productQuantityNumber = Integer.parseInt(productQuantity.getText().toString().trim());
             String productSellerString = productSeller.getText().toString().trim();
+            Boolean validEmail = emailValidator(productSellerString);
+            if(validEmail == false){
+                Exception e = new Exception();
+                throw e;
+            }
             int productPriceNumber = Integer.parseInt(productPrice.getText().toString().trim());
-
             byte[] photoByte = getBytes(bitmapImage);
             mySQLiteHelper.insert(productNameString, productQuantityNumber,productSellerString, productPriceNumber, photoByte);
             bitmapImage = null;
         }catch (NumberFormatException nFE){
             Toast.makeText(this, "You cannot enter a non-number value for quantity or price", Toast.LENGTH_SHORT).show();
             return;
+        }catch (Exception e){
+            Toast.makeText(this, "Not a valid email id", Toast.LENGTH_SHORT).show();
         }
 
         productName.setText("");
@@ -155,5 +163,15 @@ public class MainActivity extends AppCompatActivity {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
         return stream.toByteArray();
+    }
+
+    public boolean emailValidator(String email)
+    {
+        Pattern pattern;
+        Matcher matcher;
+        final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }
