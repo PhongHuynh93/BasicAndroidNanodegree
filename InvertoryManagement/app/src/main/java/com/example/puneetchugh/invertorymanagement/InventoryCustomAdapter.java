@@ -71,7 +71,7 @@ public class InventoryCustomAdapter extends BaseAdapter {
         listProductView.setText("Product : "+inventoryItemArrayList.get(position).getItemName());
         listProductPrice.setText("Price($) per unit : "+Integer.toString(inventoryItemArrayList.get(position).getPrice()));
         listProductSeller.setText("Seller : "+inventoryItemArrayList.get(position).getSupplier());
-        listProductQuantity.setText("Quantity " +Integer.toString(inventoryItemArrayList.get(position).getQuantity()));
+        listProductQuantity.setText("Quantity " + Integer.toString(inventoryItemArrayList.get(position).getQuantity()));
 
         Button detailButton = (Button) convertView.findViewById(R.id.detail);
         detailButton.setClickable(true);
@@ -92,7 +92,10 @@ public class InventoryCustomAdapter extends BaseAdapter {
                 InventoryItem inventoryItem = inventoryItemArrayList.get(position);
                 mySQLiteHelper = new MySQLiteHelper(context);
                 int temQuantity = inventoryItem.getQuantity();
-                temQuantity--;
+                if (temQuantity != 0) {
+                    temQuantity--;
+                }
+                listProductQuantity.setText("Quantity " + Integer.toString(inventoryItemArrayList.get(position).getQuantity()));
                 inventoryItem.setQuantity(temQuantity);
                 mySQLiteHelper.updateItem(inventoryItem);
                 mySQLiteHelper.close();

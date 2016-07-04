@@ -112,11 +112,15 @@ public class MainActivity extends AppCompatActivity {
             int productQuantityNumber = Integer.parseInt(productQuantity.getText().toString().trim());
             String productSellerString = productSeller.getText().toString().trim();
             Boolean validEmail = emailValidator(productSellerString);
+            int productPriceNumber = Integer.parseInt(productPrice.getText().toString().trim());
             if(validEmail == false){
                 Exception e = new Exception();
                 throw e;
             }
-            int productPriceNumber = Integer.parseInt(productPrice.getText().toString().trim());
+
+            if(productPriceNumber <= 0 || productQuantityNumber <= 0){
+                Toast.makeText(this, "That'a an invalid quantity", Toast.LENGTH_SHORT);
+            }
             byte[] photoByte = getBytes(bitmapImage);
             mySQLiteHelper.insert(productNameString, productQuantityNumber,productSellerString, productPriceNumber, photoByte);
             bitmapImage = null;
