@@ -50,14 +50,18 @@ public class MainActivity extends AppCompatActivity {
                 new MyPageFragmentAdapter(getSupportFragmentManager(), MainActivity.this);
 
         Intent intent = getIntent();
-        try {
+
             String getFragment = intent.getStringExtra("fragment_number");
-            pagerAdapter =
-                    new MyPageFragmentAdapter(getSupportFragmentManager(), MainActivity.this, 1);
-        }catch (Exception e){
+        if(getFragment == null){
             pagerAdapter =
                     new MyPageFragmentAdapter(getSupportFragmentManager(), MainActivity.this);
+        }else {
+            pagerAdapter =
+                    new MyPageFragmentAdapter(getSupportFragmentManager(), MainActivity.this, 1);
         }
+
+
+
 
         viewPager.setAdapter(pagerAdapter);
 
