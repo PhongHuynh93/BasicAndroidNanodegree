@@ -3,6 +3,7 @@ package com.example.puneetchugh.invertorymanagement;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -51,15 +52,36 @@ public class InventoryListFragment extends Fragment {
         mySQLiteHelper = new MySQLiteHelper(getActivity());
         inventoryItemArrayList = new ArrayList<>();
         inventoryItemArrayList = mySQLiteHelper.getListOfInventoryItem();
-        mySQLiteHelper.close();
+        //mySQLiteHelper.close();
 
         if(inventoryItemArrayList.size() == 0){
 
         }else {
             textWhenNoListId.setVisibility(View.GONE);
             listView = (ListView)view.findViewById(R.id.list_view);
-            InventoryCustomAdapter inventoryCustomAdapter = new InventoryCustomAdapter(inventoryItemArrayList, getActivity());
+            final InventoryCustomAdapter inventoryCustomAdapter = new InventoryCustomAdapter(inventoryItemArrayList, getActivity());
+
             listView.setAdapter(inventoryCustomAdapter);
+
+            /*
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> a, View v, int position,
+                                        long id) {
+
+                    //
+
+
+                    int tempValue = inventoryItemArrayList.get(position).getPrice();
+                    tempValue--;
+                    InventoryItem inventoryItem = inventoryItemArrayList.get(position);
+                    inventoryItem.setQuantity(tempValue);
+                    mySQLiteHelper.updateItem(inventoryItem);
+                    inventoryItemArrayList = mySQLiteHelper.getListOfInventoryItem();
+                    inventoryCustomAdapter.notifyDataSetChanged();
+                    listView.setAdapter(inventoryCustomAdapter);
+                }
+            });*/
         }
         return view;
     }

@@ -35,9 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText productQuantity;
     private EditText productSeller;
     private EditText productPrice;
-    private String imageName = new String();
     private Bitmap bitmapImage;
-    private byte[] bytesArrayImage = new byte[1];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +45,22 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mySQLiteHelper = new MySQLiteHelper(this);
-
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         MyPageFragmentAdapter pagerAdapter =
                 new MyPageFragmentAdapter(getSupportFragmentManager(), MainActivity.this);
+
+        Intent intent = getIntent();
+        try {
+            String getFragment = intent.getStringExtra("fragment_number");
+            pagerAdapter =
+                    new MyPageFragmentAdapter(getSupportFragmentManager(), MainActivity.this, 1);
+        }catch (Exception e){
+            pagerAdapter =
+                    new MyPageFragmentAdapter(getSupportFragmentManager(), MainActivity.this);
+        }
+
         viewPager.setAdapter(pagerAdapter);
+
 
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);

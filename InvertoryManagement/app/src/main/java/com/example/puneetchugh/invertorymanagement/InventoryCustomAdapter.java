@@ -99,6 +99,10 @@ public class InventoryCustomAdapter extends BaseAdapter {
                 inventoryItem.setQuantity(temQuantity);
                 mySQLiteHelper.updateItem(inventoryItem);
                 mySQLiteHelper.close();
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.putExtra("fragment_number","1");
+                context.startActivity(intent);
+
             }
         });
         return convertView;
