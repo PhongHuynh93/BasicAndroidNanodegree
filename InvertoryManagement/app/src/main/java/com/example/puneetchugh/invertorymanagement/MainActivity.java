@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private String imageName = new String();
     private Bitmap bitmapImage;
     private byte[] bytesArrayImage = new byte[1];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +47,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mySQLiteHelper = new MySQLiteHelper(this);
-        //database = mySQLiteHelper.getWritableDatabase();
-        //mySQLiteHelper.insert("Notepad", 10, "WestField Traders",50);
-        //mySQLiteHelper.insert("Pen",20,"RightWing Traders",60);
-        //mySQLiteHelper.insert("Lighter",5,"ThinkLogic Traders",100);
-        //mySQLiteHelper.insert("Highlighter", 12, "TwoBrothers traders", 20);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         MyPageFragmentAdapter pagerAdapter =

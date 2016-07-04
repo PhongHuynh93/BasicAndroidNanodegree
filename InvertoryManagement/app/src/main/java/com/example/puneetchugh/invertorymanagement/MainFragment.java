@@ -12,11 +12,8 @@ import android.widget.TextView;
  * Created by puneetchugh on 7/2/16.
  */
 public class MainFragment extends Fragment {
-    public static final String ARG_PAGE = "ARG_PAGE";
 
-    private int mPage;
-
-    public static MainFragment newInstance(int page) {
+    public static MainFragment newInstance() {
 
         MainFragment fragment = new MainFragment();
         return fragment;

@@ -32,7 +32,7 @@ public class InventoryListFragment extends Fragment {
     private SQLiteDatabase db;
     static InventoryListFragment fragment;
 
-    public static InventoryListFragment newInstance(int page) {
+    public static InventoryListFragment newInstance() {
 
         fragment = new InventoryListFragment();
         return fragment;
@@ -53,9 +53,6 @@ public class InventoryListFragment extends Fragment {
         inventoryItemArrayList = mySQLiteHelper.getListOfInventoryItem();
         mySQLiteHelper.close();
 
-
-
-
         if(inventoryItemArrayList.size() == 0){
 
         }else {
@@ -63,27 +60,6 @@ public class InventoryListFragment extends Fragment {
             listView = (ListView)view.findViewById(R.id.list_view);
             InventoryCustomAdapter inventoryCustomAdapter = new InventoryCustomAdapter(inventoryItemArrayList, getActivity());
             listView.setAdapter(inventoryCustomAdapter);
-
-
-
-
-            /*
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view,final int position, long id) {
-
-                    if (inventoryItemArrayList.size() == 0) {
-
-                    } else {
-
-
-                        //Intent intent = new Intent(getActivity(), ProductDetails.class);
-                        //intent.putExtra("inventory_item", inventoryItemArrayList.get(position));
-                        //getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-                        //startActivity(intent);
-                    }
-                }
-            });*/
         }
         return view;
     }

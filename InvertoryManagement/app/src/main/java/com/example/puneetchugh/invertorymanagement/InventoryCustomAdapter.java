@@ -28,11 +28,8 @@ public class InventoryCustomAdapter extends BaseAdapter {
     private TextView listProductSeller;
     private ImageView imageView;
     private ArrayList<InventoryItem> inventoryItemArrayList;
-
     private Context context;
-
     private MySQLiteHelper mySQLiteHelper;
-
 
     public InventoryCustomAdapter(ArrayList<InventoryItem> inventoryItemArrayList, Context context){
 
@@ -86,7 +83,6 @@ public class InventoryCustomAdapter extends BaseAdapter {
                 intent.putExtra("inventory_item", inventoryItemArrayList.get(position));
                 //getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).commit();
                 context.startActivity(intent);
-
             }
         });
 

@@ -94,12 +94,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public InventoryItem read(int id){
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME,
-                COLUMNS, " _id = ?",new String[]{String.valueOf(id)}, null, null, null, null);
+                COLUMNS, " _id = ?", new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null) {
             cursor.moveToFirst();
         }
-
         InventoryItem inventoryItem = new InventoryItem(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getBlob(5));
         cursor.close();
         return inventoryItem;
@@ -111,7 +110,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         String query = "SELECT  * FROM " + TABLE_NAME;
 
         Cursor cursor = db.rawQuery(query, null);
-
         if(cursor.moveToNext()){
             do{
                 InventoryItem inventoryItem = new InventoryItem(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3), cursor.getInt(4), cursor.getBlob(5));
@@ -121,12 +119,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return inventoryItemList;
-
-    }
-
-    public void update(int id){
-
-
     }
 
     public void deleteItem(InventoryItem inventoryItem) {
@@ -135,7 +127,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     public void updateItem(InventoryItem inventoryItem){
 
-        ArrayList<InventoryItem> inventoryItemArrayList1 = getListOfInventoryItem();
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_COLUMN_NAME, inventoryItem.getItemName());
         contentValues.put(TABLE_COLUMN_QUANTITY, inventoryItem.getQuantity());
@@ -143,11 +134,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         contentValues.put(TABLE_COLUMN_PRICE, inventoryItem.getPrice());
         contentValues.put(TABLE_COLUMN_IMG, inventoryItem.getPhoto());
         int returnValue = db.update(TABLE_NAME, contentValues, TABLE_COLUMN_ID + " = ?", new String[]{String.valueOf(inventoryItem.getId())});
-        ArrayList<InventoryItem> inventoryItemArrayList = getListOfInventoryItem();
     }
 
-    public void deleteDatabase(){
-
+    public boolean deleteDatabase(Context context) {
+        return context.deleteDatabase(DATABASE_NAME);
     }
 }
 

@@ -43,7 +43,6 @@ public class InventoryItem implements Parcelable {
         this.price = p.readInt();
         this.photo = new byte[p.readInt()];
         p.readByteArray(this.photo);
-
     }
 
     @Override

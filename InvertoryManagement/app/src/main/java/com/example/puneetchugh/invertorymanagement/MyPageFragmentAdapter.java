@@ -33,15 +33,14 @@ public class MyPageFragmentAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         switch (position){
-            case 0: Fragment mainFragment =  MainFragment.newInstance(0);
+            case 0: Fragment mainFragment =  MainFragment.newInstance();
                     return mainFragment;
 
-            case 1: Fragment inventoryListFragment = InventoryListFragment.newInstance(0);
+            case 1: Fragment inventoryListFragment = InventoryListFragment.newInstance();
                     return inventoryListFragment;
 
-            default: Fragment defaultFragment =  MainFragment.newInstance(0);
+            default: Fragment defaultFragment =  MainFragment.newInstance();
                 return defaultFragment;
-
         }
     }
 
@@ -50,16 +49,4 @@ public class MyPageFragmentAdapter extends FragmentPagerAdapter {
         // Generate title based on item position
         return tabTitles[position];
     }
-
-    /*
-
-    public View getTabView(int position) {
-        // Given you have a custom layout in `res/layout/custom_tab.xml` with a TextView and ImageView
-        View v = LayoutInflater.from(context).inflate(R.layout.custom_tab, null);
-        TextView tv = (TextView) v.findViewById(R.id.textView);
-        tv.setText(tabTitles[position]);
-        ImageView img = (ImageView) v.findViewById(R.id.imgView);
-        img.setImageResource();
-        return v;
-    }*/
 }
