@@ -18,17 +18,10 @@ public class MyPageFragmentAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 2;
     private String tabTitles[] = new String[] { "MAIN", "INVENTORY" };
     private Context context;
-    private int page = 2;
 
     public MyPageFragmentAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
-    }
-
-    public MyPageFragmentAdapter(FragmentManager fm, Context context, int position) {
-        super(fm);
-        this.context = context;
-        this.page = position;
     }
 
     @Override
@@ -38,10 +31,6 @@ public class MyPageFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (page == 1){
-            page = 0;
-            return InventoryListFragment.newInstance();
-        }
 
         switch (position){
             case 0: Fragment mainFragment =  MainFragment.newInstance();

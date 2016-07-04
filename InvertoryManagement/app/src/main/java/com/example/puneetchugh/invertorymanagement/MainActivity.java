@@ -46,37 +46,29 @@ public class MainActivity extends AppCompatActivity {
 
         mySQLiteHelper = new MySQLiteHelper(this);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        MyPageFragmentAdapter pagerAdapter =
-                new MyPageFragmentAdapter(getSupportFragmentManager(), MainActivity.this);
+        MyPageFragmentAdapter pagerAdapter;
 
         Intent intent = getIntent();
-
-            String getFragment = intent.getStringExtra("fragment_number");
+        String getFragment = intent.getStringExtra("fragment_number");
+        pagerAdapter =
+                new MyPageFragmentAdapter(getSupportFragmentManager(), MainActivity.this);
         if(getFragment == null){
-            pagerAdapter =
-                    new MyPageFragmentAdapter(getSupportFragmentManager(), MainActivity.this);
+            viewPager.setAdapter(pagerAdapter);
+
         }else {
-            pagerAdapter =
-                    new MyPageFragmentAdapter(getSupportFragmentManager(), MainActivity.this, 1);
+            viewPager.setAdapter(pagerAdapter);
+            viewPager.setCurrentItem(1);
+            getFragment = null;
         }
-
-
-
-
-        viewPager.setAdapter(pagerAdapter);
-
 
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-
-
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             //tab.setCustomView(pagerAdapter.getTabView(i));
         }
-
     }
     @Override
     public void onDestroy() {

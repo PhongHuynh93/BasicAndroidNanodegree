@@ -55,7 +55,7 @@ public class InventoryCustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(convertView == null){
             convertView = inflater.inflate(R.layout.list_item, null);
         }
@@ -102,7 +102,6 @@ public class InventoryCustomAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra("fragment_number","1");
                 context.startActivity(intent);
-
             }
         });
         return convertView;
