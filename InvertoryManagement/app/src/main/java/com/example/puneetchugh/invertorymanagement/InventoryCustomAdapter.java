@@ -60,7 +60,6 @@ public class InventoryCustomAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.list_item, null);
         }
 
-
         imageView = (ImageView) convertView.findViewById(R.id.image);
         listProductView = (TextView) convertView.findViewById(R.id.product);
         listProductQuantity = (TextView) convertView.findViewById(R.id.quantity);
@@ -81,7 +80,6 @@ public class InventoryCustomAdapter extends BaseAdapter {
             public void onClick(View parent) {
                 Intent intent = new Intent(context, ProductDetails.class);
                 intent.putExtra("inventory_item", inventoryItemArrayList.get(position));
-                //getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).commit();
                 context.startActivity(intent);
             }
         });

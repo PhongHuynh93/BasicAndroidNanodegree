@@ -70,7 +70,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public void insert(String name, int quantity, String supplier, int price, byte[] photo){
 
         String nameToBeInserted = name.toLowerCase().trim();
-        String supplierToBeInserted = supplier.trim();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_COLUMN_NAME, nameToBeInserted);
